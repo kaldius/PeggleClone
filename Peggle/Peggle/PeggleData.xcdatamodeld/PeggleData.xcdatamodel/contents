@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AreaData" representedClassName="AreaData" syncable="YES" codeGenerationType="class">
+        <attribute name="xMax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="xMin" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="yMax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="yMin" optional="YES" attributeType="Double" usesScalarValueType="YES"/>
+        <relationship name="levelData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LevelData" inverseName="areaData" inverseEntity="LevelData"/>
+    </entity>
+    <entity name="CGPointData" representedClassName="CGPointData" syncable="YES" codeGenerationType="class">
+        <attribute name="x" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="pegData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PegData" inverseName="center" inverseEntity="PegData"/>
+    </entity>
+    <entity name="CGVectorData" representedClassName="CGVectorData" syncable="YES" codeGenerationType="class">
+        <attribute name="dx" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dy" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="rectangularBlockData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RectangularBlockData" inverseName="vertices" inverseEntity="RectangularBlockData"/>
+    </entity>
+    <entity name="GameModeData" representedClassName="GameModeData" syncable="YES" codeGenerationType="class">
+        <attribute name="modeName" optional="YES" attributeType="String"/>
+        <relationship name="levelData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LevelData" inverseName="gameModeData" inverseEntity="LevelData"/>
+    </entity>
+    <entity name="LevelData" representedClassName="LevelData" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="areaData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AreaData" inverseName="levelData" inverseEntity="AreaData"/>
+        <relationship name="blockDatas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RectangularBlockData" inverseName="levelData" inverseEntity="RectangularBlockData"/>
+        <relationship name="gameModeData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GameModeData" inverseName="levelData" inverseEntity="GameModeData"/>
+        <relationship name="pegDatas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PegData" inverseName="levelData" inverseEntity="PegData"/>
+    </entity>
+    <entity name="PegData" representedClassName="PegData" syncable="YES" codeGenerationType="class">
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="center" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CGPointData" inverseName="pegData" inverseEntity="CGPointData"/>
+        <relationship name="levelData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LevelData" inverseName="pegDatas" inverseEntity="LevelData"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PegTypeData" inverseName="pegData" inverseEntity="PegTypeData"/>
+    </entity>
+    <entity name="PegTypeData" representedClassName="PegTypeData" syncable="YES" codeGenerationType="class">
+        <attribute name="typeName" optional="YES" attributeType="String"/>
+        <relationship name="pegData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PegData" inverseName="type" inverseEntity="PegData"/>
+    </entity>
+    <entity name="RectangularBlockData" representedClassName="RectangularBlockData" syncable="YES" codeGenerationType="class">
+        <relationship name="levelData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LevelData" inverseName="blockDatas" inverseEntity="LevelData"/>
+        <relationship name="vertices" optional="YES" toMany="YES" minCount="3" deletionRule="Nullify" ordered="YES" destinationEntity="CGVectorData" inverseName="rectangularBlockData" inverseEntity="CGVectorData"/>
+    </entity>
+</model>
